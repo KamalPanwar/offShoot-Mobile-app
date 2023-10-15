@@ -9,9 +9,9 @@ import {
 } from "react-native";
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import CollectionData from "../collections/CollectionData";
 import { useAuth } from "../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 
 const Home = ({ navigation }) => {
   const Drawer = createDrawerNavigator();
@@ -34,6 +34,7 @@ const Home = ({ navigation }) => {
                   />
                   <Text style={styles.welcomeText}>Welcome!</Text>
                 </View>
+               
               </View>
             </ScrollView>
           </SafeAreaView>

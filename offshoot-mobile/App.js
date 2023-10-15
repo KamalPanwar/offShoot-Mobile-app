@@ -59,8 +59,9 @@ const Root = () => {
           headerRight: () => (
             <Ionicons
               name="person-circle"
-              size={35}
-              color="black"
+              size={40}
+              color={colors.iconColor}
+              style={{marginRight:25}}
               onPress={() => navigation.navigate("Profile")}
             />
           ),
