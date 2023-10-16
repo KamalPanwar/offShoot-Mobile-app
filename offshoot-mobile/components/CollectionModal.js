@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import { Entypo } from '@expo/vector-icons';
 import { colors } from "../utils/colors";
+import { Divider } from "@rneui/base";
+
+
+
 
 const coleectionData = {
   processName: "IDFC Collection",
@@ -9,7 +13,7 @@ const coleectionData = {
   customerName: "Anuj Bhati",
   principalOutstanding: 126985,
   emi: 12654,
-  emiDate: Date("2023/07/23"),
+  emiDate: "2023/07/23",
   noofEmi: 0,
   totalDue: 123654,
   cycleBkt: 0,
@@ -37,33 +41,45 @@ const CollectionModal = (props) => {
             <Text style={{fontSize:28,paddingRight:60,fontWeight:800,color:'black'}}>Collection Data</Text>
             <Entypo name="cross" size={32} color={colors.iconColor} onPress={props.onHide} />
             </View>
-            
             <View>
-            <Text> Process Name: {coleectionData.processName}</Text>
-            <Text> Loan No:{coleectionData.loanNo}</Text>
-            <Text> Customer Name: {coleectionData.customerName}</Text>
-            <Text>
-              Principal Outstanding: {coleectionData.principalOutstanding}
-            </Text>
-            <Text> EMI:{coleectionData.emi}</Text>
-            <Text> EMI Date:{coleectionData.emiDate}</Text>
-            <Text>Noof EMI:{coleectionData.noofEmi}</Text>
-            <Text>Total Due :{coleectionData.totalDue}</Text>
-            <Text>Cycle_BKT:{coleectionData.cycleBkt}</Text>
-            <Text> Mobile No:{coleectionData.mobileNo}</Text>
-            <Text>Pickup Add1: {coleectionData.pickupAdd1}</Text>
-            <Text>Pickup Add2:{coleectionData.pickupAdd2}</Text>
-            <Text> Pickup Add3:{coleectionData.pickupAdd3}</Text>
-            <Text>Status:{coleectionData.status}</Text>
-            <Text>Disposition:{coleectionData.disposition}</Text>
-            <Text>Pickup Timing:{coleectionData.pickupTiming}</Text>
+            <Divider color="grey" width={2} style={{marginBottom:12,marginTop:-8}}  />
+          
+            <Text><Text style={styles.options}>Process Name:</Text> {coleectionData.processName}</Text>
+            <Text><Text style={{fontWeight:700}}>Loan No:</Text> {coleectionData.loanNo}</Text>
+            <Text><Text style={{fontWeight:700}}>Customer Name:</Text> {coleectionData.customerName}</Text>
+            <Text><Text style={{fontWeight:700}}>Principal Outstanding: </Text>{coleectionData.principalOutstanding}</Text>
+            <Text><Text style={{fontWeight:700}}>EMI:</Text>{coleectionData.emi}</Text>
+            <Text><Text style={{fontWeight:700}}>EMI Date:</Text> {coleectionData.emiDate}</Text>
+            <Text><Text style={{fontWeight:700}}>Noof EMI:</Text>{coleectionData.noofEmi}</Text>
+            <Text><Text style={{fontWeight:700}}>Total Due :</Text>{coleectionData.totalDue}</Text>
+            <Text><Text style={{fontWeight:700}}>Cycle_BKT:</Text>{coleectionData.cycleBkt}</Text>
+            <Text><Text style={{fontWeight:700}}>Mobile No:</Text> {coleectionData.mobileNo}</Text>
+            <Text><Text style={{fontWeight:700}}>Pickup Add1:</Text> {coleectionData.pickupAdd1}</Text>
+            <Text><Text style={{fontWeight:700}}>Pickup Add2:</Text>{coleectionData.pickupAdd2}</Text>
+            <Text><Text style={{fontWeight:700}}>Pickup Add3:</Text>{coleectionData.pickupAdd3}</Text>
+            <Text><Text style={{fontWeight:700}}>Status:</Text>{coleectionData.status}</Text>
+            <Text><Text style={{fontWeight:700}}>Disposition:</Text>{coleectionData.disposition}</Text>
+            <Text><Text style={{fontWeight:700}}>Pickup Timing:</Text>{coleectionData.pickupTiming}</Text>
+            <Divider color="grey" style={{marginVertical:10}}  />
             </View>
-            {/* <Pressable
-              style={[styles.button, styles.buttonClose]}
+            <Pressable
+              style={styles.button}
               
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable> */}
+              >
+              <Text style={styles.textStyle}>TRACED</Text>
+            </Pressable>
+            <Pressable
+              style={styles.button}
+              
+              >
+              <Text style={styles.textStyle}>UNTRACEABLE</Text>
+            </Pressable>
+            <Pressable
+              style={styles.button}
+              
+              >
+              <Text style={styles.textStyle}>WRONG ALLOCATED</Text>
+            </Pressable>
           </View>
         </View>
       </Modal>
@@ -80,10 +96,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
-    margin: 17,
+    marginTop:-55,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 20,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -94,6 +110,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  options:{
+    fontWeight:700,
+    
+  },
   modalHeader:{
     flexDirection:'row',
     justifyContent:'space-evenly',
@@ -102,15 +122,18 @@ const styles = StyleSheet.create({
     marginBottom:20,
     
   },
+  
   button: {
-    borderRadius: 20,
+    borderRadius: 10,
+    backgroundColor:colors.lightBlue,
     padding: 10,
+    margin:5,
     elevation: 2,
+    width:300
+
   },
 
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
+
   textStyle: {
     color: "white",
     fontWeight: "bold",
