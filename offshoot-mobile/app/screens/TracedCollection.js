@@ -6,16 +6,13 @@ import {
   View,
   SafeAreaView,
   StatusBar,
-  Pressable
+  Pressable,
 } from "react-native";
 import React from "react";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from "@expo/vector-icons";
 import { colors } from "../../utils/colors";
-
-
-
 
 const TracedCollection = () => {
   return (
@@ -27,43 +24,44 @@ const TracedCollection = () => {
           placeholder="Contact Person Number"
         />
         <TextInput style={styles.inputtext} placeholder="Address" />
-    
-      <View style={styles.imageWrapper}>
-        <TouchableOpacity>
-       
-          <FontAwesome5 style={styles.signIcon} name="signature" size={120}  color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons
-            style={styles.cameraIcon}
-            name="camera"
-            size={150}
-            color="black"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons
-            style={styles.cameraIcon}
-            name="camera"
-            size={150}
-            color="black"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons
-            style={styles.cameraIcon}
-            name="camera"
-            size={150}
-            color="black"
-          />
-        </TouchableOpacity>
-      </View>
-      <Pressable
-              style={styles.button}
-              
-              >
-              <Text style={styles.textStyle}>SUBMIT</Text>
-            </Pressable>
+
+        <View style={styles.imageWrapper}>
+          <TouchableOpacity>
+            <FontAwesome5
+              style={styles.signIcon}
+              name="signature"
+              size={120}
+              color="black"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Ionicons
+              style={styles.cameraIcon}
+              name="camera"
+              size={150}
+              color="black"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Ionicons
+              style={styles.cameraIcon}
+              name="camera"
+              size={150}
+              color="black"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Ionicons
+              style={styles.cameraIcon}
+              name="camera"
+              size={150}
+              color="black"
+            />
+          </TouchableOpacity>
+        </View>
+        <Pressable style={styles.button}>
+          <Text style={styles.textStyle}>SUBMIT</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -105,22 +103,20 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 2,
     margin: 6,
-    height:165,
+    height: 165,
   },
-  signIcon:{
+  signIcon: {
     borderColor: "black",
     borderWidth: 2,
     margin: 6,
-    height:165,
+    height: 165,
   },
   button: {
     borderRadius: 10,
-    backgroundColor:colors.lightBlue,
+    backgroundColor: colors.lightBlue,
     padding: 10,
-    margin:4,
+    margin: 4,
     elevation: 2,
-    
-
   },
   textStyle: {
     color: "white",

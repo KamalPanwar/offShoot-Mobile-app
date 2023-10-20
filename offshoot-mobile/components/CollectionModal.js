@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import { Alert, Modal, StyleSheet, Text, Pressable, View, ActivityIndicator } from "react-native";
 import { Entypo } from '@expo/vector-icons';
 import { colors } from "../utils/colors";
 import { Divider } from "@rneui/base";
@@ -106,9 +106,10 @@ const CollectionModal = (props) => {
 }
 else{
   return(
-    <View>
-      <Text style={{justifyContent:'center',alignItems:'center',fontWeight:700}}>
-        Loading.....
+    <View style={{justifyContent:'center',alignItems:'center'}}>
+        <ActivityIndicator size="large"/>
+      <Text style={{justifyContent:'center',alignItems:'center'}}>
+        Loading...
       </Text>
     </View>
   )
