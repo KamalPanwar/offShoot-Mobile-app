@@ -5,71 +5,117 @@ import {
   StatusBar,
   SafeAreaView,
   TouchableWithoutFeedback,
+  ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fontSizes } from "../../utils/sizes";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import CollectionModal from "../../components/CollectionModal";
 import { colors } from "../../utils/colors";
+import axios from "axios";
 
-const CollectionData = () => {
+const CollectionData = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [apiData, setApiData] = useState([]);
+  const [currentCust,setCurrentCust]=useState()
+
+
+
+  const handleVisible=(e)=>{
+    setModalVisible(!modalVisible)
+    const id=e.collectionid
+    const obj=apiData.find(ele=>ele.collectionid==id)
+  
+    setCurrentCust(obj)
+
+  }
+
+  useEffect(() => {
+    async function fetchdata() {
+      try {
+        const response = await axios.get("http://192.168.29.152:3000/coldata");
+
+        setApiData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchdata();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
-        <View style={styles.card}>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              paddingHorizontal: 15,
-            }}
-          >
-            <View>
-              <Text style={styles.cardTitle}>Customer Name</Text>
-              <Text style={styles.cardValue}> Rajender Singh Rathore</Text>
-            </View>
-            <View>
-              <FontAwesome5 name="car" size={35} color={colors.iconColor} />
-            </View>
-          </View>
+      <ScrollView>
+        {apiData.map((item) => {
+          return (
+            <React.Fragment>
+              <TouchableWithoutFeedback 
+              
+                onPress={()=>handleVisible(item)}
+              >
+                <View style={styles.card}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      paddingHorizontal: 15,
+                    }}
+                  >
+                    <View>
+                      <Text style={styles.cardTitle}>Customer Name</Text>
+                      <Text style={styles.cardValue}> {item.customername}</Text>
+                    </View>
+                    <View>
+                      <FontAwesome5
+                        name="car"
+                        size={35}
+                        color={colors.iconColor}
+                      />
+                    </View>
+                  </View>
 
-          <View style={styles.cardOptionWrapper}>
-            <View>
-              <Text style={styles.cardTitle}>Mobile Number</Text>
-              <Text style={styles.cardValue}>9874563210</Text>
-            </View>
-            <View>
-              <Text style={styles.cardTitle}>Loan Number </Text>
-              <Text style={styles.cardValue}> 66791766</Text>
-            </View>
-            <View>
-              <Text style={styles.cardTitle}>Total Pos </Text>
-              <Text style={styles.cardValue}> ₹13762.02</Text>
-            </View>
-            <View>
-              <MaterialIcons
-                name="arrow-forward-ios"
-                size={24}
-                color="black"
-                onPress={() => setModalVisible(!modalVisible)}
-              />
-            </View>
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
-
-      <CollectionModal
-        modalVisible={modalVisible}
-        onHide={() => setModalVisible(!modalVisible)}
-      />
-      {/* <Text>
-        Address : C 4 204 Aparnaraj Chs Gholani Nagar Kharegaon Kalwa West Thane
-        Maharasthra 400605 Mumbai Thane 400605
-      </Text> */}
+                  <View style={styles.cardOptionWrapper}>
+                    <View>
+                      <Text style={styles.cardTitle}>Mobile Number</Text>
+                      <Text style={styles.cardValue}>{item.mobileno}</Text>
+                    </View>
+                    <View>
+                      <Text style={styles.cardTitle}>Loan Number </Text>
+                      <Text style={styles.cardValue}>
+                        {item.loancardaccountno}
+                      </Text>
+                    </View>
+                    <View>
+                      <Text style={styles.cardTitle}>Total Due </Text>
+                      <Text style={styles.cardValue}> ₹{item.totaldue}</Text>
+                    </View>
+                    <View>
+                      <MaterialIcons
+                        name="arrow-forward-ios"
+                        size={24}
+                        color="black"
+                        onPress={() => setModalVisible(!modalVisible)}
+                      />
+                    </View>
+                  </View>
+                </View>
+              </TouchableWithoutFeedback>
+       
+            </React.Fragment>
+          );
+        })}
+       <CollectionModal 
+        colData={currentCust}
+          navigation={navigation}
+          modalVisible={modalVisible}
+          onHide={() => setModalVisible(!modalVisible)}
+        />
+       
+      </ScrollView>
     </SafeAreaView>
   );
 };

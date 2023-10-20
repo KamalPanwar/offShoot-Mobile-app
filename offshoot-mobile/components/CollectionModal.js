@@ -7,7 +7,7 @@ import { Divider } from "@rneui/base";
 
 
 
-const coleectionData = {
+const collectionData = {
   processName: "IDFC Collection",
   loanNo: 6584514,
   customerName: "Anuj Bhati",
@@ -28,6 +28,20 @@ const coleectionData = {
 };
 
 const CollectionModal = (props) => {
+
+  const collectionData = props.colData;
+ 
+  function handleTraced(){
+    props.onHide();
+    props.navigation.navigate("Traced Collection");
+  }
+  function handleUntracable(){
+    props.onHide();
+    props.navigation.navigate("Untracable Collection");
+  }
+  if(collectionData){
+
+ 
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -35,42 +49,45 @@ const CollectionModal = (props) => {
         transparent={true}
         visible={props.modalVisible}
       >
+        
+
+         
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.modalHeader}>
             <Text style={{fontSize:28,paddingRight:60,fontWeight:800,color:'black'}}>Collection Data</Text>
             <Entypo name="cross" size={32} color={colors.iconColor} onPress={props.onHide} />
             </View>
-            <View>
             <Divider color="grey" width={2} style={{marginBottom:12,marginTop:-8}}  />
+            <View style={{gap:13}}>
           
-            <Text><Text style={{fontWeight:700}}>Process Name:</Text> {coleectionData.processName}</Text>
-            <Text><Text style={{fontWeight:700}}>Loan No:</Text> {coleectionData.loanNo}</Text>
-            <Text><Text style={{fontWeight:700}}>Customer Name:</Text> {coleectionData.customerName}</Text>
-            <Text><Text style={{fontWeight:700}}>Principal Outstanding: </Text>{coleectionData.principalOutstanding}</Text>
-            <Text><Text style={{fontWeight:700}}>EMI:</Text>{coleectionData.emi}</Text>
-            <Text><Text style={{fontWeight:700}}>EMI Date:</Text> {coleectionData.emiDate}</Text>
-            <Text><Text style={{fontWeight:700}}>Noof EMI:</Text>{coleectionData.noofEmi}</Text>
-            <Text><Text style={{fontWeight:700}}>Total Due :</Text>{coleectionData.totalDue}</Text>
-            <Text><Text style={{fontWeight:700}}>Cycle_BKT:</Text>{coleectionData.cycleBkt}</Text>
-            <Text><Text style={{fontWeight:700}}>Mobile No:</Text> {coleectionData.mobileNo}</Text>
-            <Text><Text style={{fontWeight:700}}>Pickup Add1:</Text> {coleectionData.pickupAdd1}</Text>
-            <Text><Text style={{fontWeight:700}}>Pickup Add2:</Text>{coleectionData.pickupAdd2}</Text>
-            <Text><Text style={{fontWeight:700}}>Pickup Add3:</Text>{coleectionData.pickupAdd3}</Text>
-            <Text><Text style={{fontWeight:700}}>Status:</Text>{coleectionData.status}</Text>
-            <Text><Text style={{fontWeight:700}}>Disposition:</Text>{coleectionData.disposition}</Text>
-            <Text><Text style={{fontWeight:700}}>Pickup Timing:</Text>{coleectionData.pickupTiming}</Text>
+            <Text><Text style={{fontWeight:700}}>Process Name:</Text> {collectionData.portfolio}</Text>
+            <Text><Text style={{fontWeight:700}}>Loan No:</Text> {collectionData.loancardaccountno}</Text>
+            <Text><Text style={{fontWeight:700}}>Customer Name:</Text> {collectionData.customername}</Text>
+            <Text><Text style={{fontWeight:700}}>Principal Outstanding: </Text>{collectionData.principaloutstanding}</Text>
+            {/* <Text><Text style={{fontWeight:700}}>EMI:</Text>{collectionData.emi}</Text> */}
+            <Text><Text style={{fontWeight:700}}>EMI Date:</Text> {collectionData.emidate}</Text>
+            <Text><Text style={{fontWeight:700}}>No of EMI:</Text>{collectionData.noofemi}</Text>
+            <Text><Text style={{fontWeight:700}}>Total Due :</Text>{collectionData.totaldue}</Text>
+            {/* <Text><Text style={{fontWeight:700}}>Cycle_BKT:</Text>{collectionData.cycleBkt}</Text> */}
+            <Text><Text style={{fontWeight:700}}>Mobile No:</Text> {collectionData.mobileno}</Text>
+            <Text><Text style={{fontWeight:700}}>Pickup Add1:</Text> {collectionData.pickupaddress1}</Text>
+            {/* <Text><Text style={{fontWeight:700}}>Pickup Add2:</Text>{collectionData.pickupAdd2}</Text> */}
+            {/* <Text><Text style={{fontWeight:700}}>Pickup Add3:</Text>{collectionData.pickupAdd3}</Text> */}
+            {/* <Text><Text style={{fontWeight:700}}>Status:</Text>{collectionData.status}</Text> */}
+            {/* <Text><Text style={{fontWeight:700}}>Disposition:</Text>{collectionData.disposition}</Text> */}
+            {/* <Text><Text style={{fontWeight:700}}>Pickup Timing:</Text>{collectionData.pickupTiming}</Text> */}
             <Divider color="grey" style={{marginVertical:10}}  />
             </View>
             <Pressable
               style={styles.button}
-              
+              onPress={handleTraced}
               >
               <Text style={styles.textStyle}>TRACED</Text>
             </Pressable>
             <Pressable
               style={styles.button}
-              
+              onPress={handleUntracable}
               >
               <Text style={styles.textStyle}>UNTRACEABLE</Text>
             </Pressable>
@@ -82,10 +99,21 @@ const CollectionModal = (props) => {
             </Pressable>
           </View>
         </View>
+      
       </Modal>
     </View>
   );
-};
+}
+else{
+  return(
+    <View>
+      <Text style={{justifyContent:'center',alignItems:'center',fontWeight:700}}>
+        Loading.....
+      </Text>
+    </View>
+  )
+}
+}
 
 export default CollectionModal;
 

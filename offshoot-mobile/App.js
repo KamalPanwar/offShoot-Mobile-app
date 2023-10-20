@@ -18,8 +18,9 @@ import { Ionicons } from "@expo/vector-icons";
 import Profile from "./app/screens/Profile";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { colors } from "./utils/colors";
+import TracedCollection from "./app/screens/TracedCollection";
+import UntracableCollection from "./app/screens/UntracableCollection";
 const Drawer = createDrawerNavigator();
 const stack = createNativeStackNavigator();
 
@@ -124,7 +125,9 @@ export const Layout = () => {
               options={{ headerShown: false }}
             />
             <stack.Screen name="Profile" component={Profile}></stack.Screen>
-            <stack.Screen
+            <stack.Screen name="Traced Collection" component={TracedCollection}></stack.Screen>
+            <stack.Screen name="Untracable Collection" component={UntracableCollection}></stack.Screen>
+            <stack.Screen 
               name="bottom Drawer"
               component={BottomTab}
             ></stack.Screen>
