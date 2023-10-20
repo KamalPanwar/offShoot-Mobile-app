@@ -4,8 +4,11 @@ const jwt = require("jsonwebtoken");
 const JWTstrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const UserModel=require('../model/model')
+const speakeasy = require('speakeasy');
+const sendEmail=require('../utils/Email')
 
 const router = express.Router();
+const secret = speakeasy.generateSecret();
 
 passport.use(
   new JWTstrategy(
@@ -65,5 +68,72 @@ router.post("/login", async (req, res, next) => {
     }
   })(req, res, next);
 });
+
+router.post("/forgot-password", async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate a random 6-digit OTP
+    const otp =speakeasy.totp({
+      secret: secret.base32,
+      encoding: 'base32'
+  });
+    user.otp = otp;
+    user.otpExpiration = Date.now() + 300000; // OTP expires in 5 minutes
+    await user.save();
+
+    const message =`OTP for your forgot Password ${otp}`
+
+    // Send the OTP to the user's email or phone number
+    await sendEmail({
+      email:user.email,
+      subject:'Your password reset OTP(valid for 5 min)',
+      message
+    })
+
+    // Implement this part based on your chosen communication method
+
+    res.status(200).json({ message: "OTP has been sent to your email or phone" });
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+router.post("/reset-password", async (req, res, next) => {
+  try {
+    const { email, otp, password } = req.body;
+
+
+    const user = await UserModel.findOne({
+      email,
+      otp,
+      otpExpiration: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid or expired OTP" });
+    }
+
+    // Update the password and clear the OTP fields
+    user.password = password;
+    user.otp = undefined;
+    user.otpExpiration = undefined;
+    await user.save({validateBeforeSave:false});
+
+    // You might also want to notify the user that their password has been changed
+
+    res.json({ message: "Password reset successful" });
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 
 module.exports = router;
