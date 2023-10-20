@@ -44,7 +44,7 @@ const CollectionModal = (props) => {
             <View>
             <Divider color="grey" width={2} style={{marginBottom:12,marginTop:-8}}  />
           
-            <Text><Text style={styles.options}>Process Name:</Text> {coleectionData.processName}</Text>
+            <Text><Text style={{fontWeight:700}}>Process Name:</Text> {coleectionData.processName}</Text>
             <Text><Text style={{fontWeight:700}}>Loan No:</Text> {coleectionData.loanNo}</Text>
             <Text><Text style={{fontWeight:700}}>Customer Name:</Text> {coleectionData.customerName}</Text>
             <Text><Text style={{fontWeight:700}}>Principal Outstanding: </Text>{coleectionData.principalOutstanding}</Text>
@@ -110,10 +110,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  options:{
-    fontWeight:700,
-    
-  },
+
   modalHeader:{
     flexDirection:'row',
     justifyContent:'space-evenly',

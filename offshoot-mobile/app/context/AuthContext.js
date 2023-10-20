@@ -10,7 +10,7 @@ const AuthProps = {
 };
 
 const TOKEN_KEY = "MY_JWT";
-export const API_URL = 'http://192.168.1.11:3000';
+export const API_URL = 'http://192.168.29.132:3000';
 const AuthContext = createContext(AuthProps);
 
 export const useAuth = () => {
