@@ -35,7 +35,7 @@ const CollectionData = ({ navigation }) => {
   useEffect(() => {
     async function fetchdata() {
       try {
-        const response = await axios.get("http://192.168.29.152:3000/coldata");
+        const response = await axios.get("http://192.168.1.11:3000/coldata");
 
         setApiData(response.data);
       } catch (error) {

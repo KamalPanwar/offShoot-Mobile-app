@@ -7,25 +7,6 @@ import { Divider } from "@rneui/base";
 
 
 
-const collectionData = {
-  processName: "IDFC Collection",
-  loanNo: 6584514,
-  customerName: "Anuj Bhati",
-  principalOutstanding: 126985,
-  emi: 12654,
-  emiDate: "2023/07/23",
-  noofEmi: 0,
-  totalDue: 123654,
-  cycleBkt: 0,
-  mobileNo: 989845698,
-  pickupAdd1:
-    "C 4 204 Aparnaraj Chs Gholani Nagar Kharegaon Kalwa West Thane Maharasthra 400605 Mumbai Thane 400605",
-  pickupAdd2: "Mumbai",
-  pickupAdd3: "Thane",
-  status: "N/A",
-  disposition: "N/A",
-  pickupTiming: "12:30",
-};
 
 const CollectionModal = (props) => {
 

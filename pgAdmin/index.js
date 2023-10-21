@@ -7,7 +7,7 @@ pool
     port: 5432,
     database: "offshoot",
     user: "postgres",
-    password: "12345",
+    password: "123456789",
   })
   .then(() => {
     app().listen(3000, () => {
