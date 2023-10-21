@@ -15,8 +15,14 @@ router.get("/coldata", async (req, res) => {
 });
 
 router.post("/traced", async(req,res)=>{
-  console.log(req.body);
-  res.send("OK")
+  
+  const{collectionid, lllocation, latlong}=req.body
+  const user=await colRepo.update(collectionid, lllocation, latlong)
+  if (user.length > 0) {
+    res.send(user);
+  } else {
+    res.status(404);
+  }
 })
 
 router.post("/untracable", async(req,res)=>{
