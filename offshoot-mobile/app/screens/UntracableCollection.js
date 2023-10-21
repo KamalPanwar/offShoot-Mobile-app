@@ -37,7 +37,7 @@ const UntracableCollection = ({navigation,route}) => {
     };
 
     async function sendData() {
-      const response = await axios.post("http://192.168.200.19:3000/traced", {
+      const response = await axios.post("https://pg-api-45dn.onrender.com/traced", {
         obj,
       });
       if (response) {
