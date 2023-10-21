@@ -49,9 +49,9 @@ const CollectionData = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        {apiData.map((item) => {
+        {apiData.map((item,index) => {
           return (
-            <React.Fragment>
+            <React.Fragment key={index}>
               <TouchableWithoutFeedback 
               
                 onPress={()=>handleVisible(item)}

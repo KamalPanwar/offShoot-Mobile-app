@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "auth-tutorial",
-    "slug": "auth-tutorial",
+    "name": "offshoot-mobile",
+    "slug": "offshoot-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -46,7 +46,9 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location.",
+          "isAndroidBackgroundLocationEnabled" : true
+
         }
       ]
     ],
