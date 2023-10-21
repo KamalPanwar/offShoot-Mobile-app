@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useAuth } from "../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -16,6 +16,22 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Home = ({ navigation }) => {
   const Drawer = createDrawerNavigator();
   const { authState, onLogout } = useAuth();
+
+  useEffect(() => {
+    (async () => {
+      const { status: foregroundStatus } = await Location.requestForegroundPermissionsAsync();
+      if (foregroundStatus === 'granted') {
+        const { status: backgroundStatus } = await Location.requestBackgroundPermissionsAsync();
+        if (backgroundStatus === 'granted') {
+          await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+            accuracy: Location.Accuracy.Balanced,
+          });
+        }
+      }
+
+     
+    })();
+  }, []);
   return (
     <React.Fragment>
       <View style={styles.welcome}>
