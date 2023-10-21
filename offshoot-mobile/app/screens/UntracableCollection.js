@@ -17,7 +17,7 @@ import { colors } from "../../utils/colors";
 import LocationFinder from "../../components/LocationFinder";
 import axios from "axios";
 
-const UntracableCollection = ({ navigation }) => {
+const UntracableCollection = ({navigation,route}) => {
   const dispositionRef = useRef();
   const remarkRef = useRef();
   const [longitude, setLongitude] = useState();
@@ -29,6 +29,9 @@ const UntracableCollection = ({ navigation }) => {
       loanId :route.params.loanId,
       disposition: dispositionRef.current.value,
       remark: remarkRef.current.value,
+      latitude : latitude,
+      longitude : longitude,
+      date: Date(),
     };
 
     async function sendData() {
