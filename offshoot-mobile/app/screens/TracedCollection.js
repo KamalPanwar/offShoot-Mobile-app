@@ -18,7 +18,9 @@ import { colors } from "../../utils/colors";
 import LocationFinder from "../../components/LocationFinder";
 import axios from "axios";
 
-const TracedCollection = ({navigation}) => {
+const TracedCollection = ({navigation,route}) => {
+
+ 
   const personNameRef = useRef();
   const personNumberRef = useRef();
   const amountRef = useRef();
@@ -29,6 +31,8 @@ const TracedCollection = ({navigation}) => {
 
   function handleSumbit() {
     const obj = {
+      status:"Traced",
+      loanId :route.params.loanId,
       personName: personNameRef.current.value,
       personNumber: personNumberRef.current.value,
       paymentAmout: amountRef.current.value,

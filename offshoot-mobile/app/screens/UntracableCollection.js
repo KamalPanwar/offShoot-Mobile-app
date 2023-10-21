@@ -25,6 +25,8 @@ const UntracableCollection = ({ navigation }) => {
 
   function handleSumbit() {
     const obj = {
+      status:"Untracable",
+      loanId :route.params.loanId,
       disposition: dispositionRef.current.value,
       remark: remarkRef.current.value,
     };
