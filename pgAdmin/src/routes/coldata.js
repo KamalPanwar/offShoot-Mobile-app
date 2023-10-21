@@ -19,4 +19,9 @@ router.post("/traced", async(req,res)=>{
   res.send("OK")
 })
 
+router.post("/untracable", async(req,res)=>{
+  console.log(req.body);
+  res.send("OK")
+})
+
 module.exports = router;

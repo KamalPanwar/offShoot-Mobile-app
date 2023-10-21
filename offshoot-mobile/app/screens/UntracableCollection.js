@@ -8,19 +8,46 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
-import React from "react";
+import React, { useRef } from "react";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../utils/colors";
 import LocationFinder from "../../components/LocationFinder";
+import axios from "axios";
+
 
 const UntracableCollection = () => {
+  const dispositionRef = useRef();
+  const remarkRef = useRef();
+
+  function handleSumbit() {
+    const obj = {
+      disposition: dispositionRef.current.value,
+      remark: remarkRef.current.value,
+      
+    };
+    console.log(obj);
+
+    async function sendData() {
+      const response = await axios.post("http://192.168.1.11:3000/untracable", {
+        obj,
+      });
+
+      console.log(response.data);
+    }
+
+    sendData();
+  }
+
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ margin: 30 }}>
-        <TextInput style={styles.inputtext} placeholder="Disposition" />
-        <TextInput style={styles.inputtext} placeholder="FE_REMARKS" />
+        <TextInput style={styles.inputtext} placeholder="Disposition" ref={dispositionRef} onChangeText={(e) => (dispositionRef.current.value = e)}/>
+        <TextInput style={styles.inputtext} placeholder="FE_REMARKS" ref={remarkRef} onChangeText={(e) => (remarkRef.current.value = e)} />
         {/* 
+        Disposition
+        FE_REMARKS
           lat/long
           time stamp
           image - 4
@@ -60,7 +87,7 @@ const UntracableCollection = () => {
             />
           </TouchableOpacity>
         </View>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={handleSumbit}>
           <Text style={styles.textStyle}>SUBMIT</Text>
         </Pressable>
       </View>
