@@ -3,11 +3,11 @@ const pool = require("./src/pool.js");
 
 pool
   .connect({
-    host: "localhost",
+    host: "127.0.0.1",
     port: 5432,
     database: "offshoot",
     user: "postgres",
-    password: "123456789",
+    password: "12345",
   })
   .then(() => {
     app().listen(3000, () => {
