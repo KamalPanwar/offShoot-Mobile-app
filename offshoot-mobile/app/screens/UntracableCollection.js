@@ -17,7 +17,7 @@ import LocationFinder from "../../components/LocationFinder";
 import axios from "axios";
 
 
-const UntracableCollection = () => {
+const UntracableCollection = ({navigation}) => {
   const dispositionRef = useRef();
   const remarkRef = useRef();
 
@@ -38,6 +38,8 @@ const UntracableCollection = () => {
     }
 
     sendData();
+
+    navigation.navigate("Root")
   }
 
 
@@ -62,7 +64,7 @@ const UntracableCollection = () => {
             <Ionicons
               style={styles.cameraIcon}
               name="camera"
-              size={150}
+              size={109}
               color="black"
             />
           </TouchableOpacity>
@@ -70,7 +72,7 @@ const UntracableCollection = () => {
             <Ionicons
               style={styles.cameraIcon}
               name="camera"
-              size={150}
+              size={109}
               color="black"
             />
           </TouchableOpacity>
@@ -78,7 +80,7 @@ const UntracableCollection = () => {
             <Ionicons
               style={styles.cameraIcon}
               name="camera"
-              size={150}
+              size={109}
               color="black"
             />
           </TouchableOpacity>
@@ -86,7 +88,7 @@ const UntracableCollection = () => {
             <Ionicons
               style={styles.cameraIcon}
               name="camera"
-              size={150}
+              size={109}
               color="black"
             />
           </TouchableOpacity>
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
   cameraIcon: {
     borderColor: "black",
     borderWidth: 2,
-    margin: 6,
+    margin: 2,
   },
   button: {
     borderRadius: 10,

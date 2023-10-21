@@ -16,7 +16,7 @@ const LocationFinder = () => {
         }
   
         let location = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.Highest,
+          accuracy: Location.Accuracy.Balanced,
         });
         setLocation(location);
         let { longitude, latitude } = location.coords;

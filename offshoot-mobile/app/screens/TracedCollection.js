@@ -17,7 +17,7 @@ import { colors } from "../../utils/colors";
 import LocationFinder from "../../components/LocationFinder";
 import axios from "axios";
 
-const TracedCollection = () => {
+const TracedCollection = ({navigation}) => {
   const personNameRef = useRef();
   const personNumberRef = useRef();
   const amountRef = useRef();
@@ -43,8 +43,8 @@ const TracedCollection = () => {
     }
 
     sendData();
+    navigation.navigate("Root")
   }
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -90,7 +90,7 @@ const TracedCollection = () => {
               <FontAwesome5
                 style={styles.signIcon}
                 name="signature"
-                size={120}
+                size={90}
                 color="black"
               />
             </TouchableOpacity>
@@ -98,7 +98,7 @@ const TracedCollection = () => {
               <Ionicons
                 style={styles.cameraIcon}
                 name="camera"
-                size={150}
+                size={109}
                 color="black"
               />
             </TouchableOpacity>
@@ -106,7 +106,7 @@ const TracedCollection = () => {
               <Ionicons
                 style={styles.cameraIcon}
                 name="camera"
-                size={150}
+                size={109}
                 color="black"
               />
             </TouchableOpacity>
@@ -114,7 +114,7 @@ const TracedCollection = () => {
               <Ionicons
                 style={styles.cameraIcon}
                 name="camera"
-                size={150}
+                size={109}
                 color="black"
               />
             </TouchableOpacity>
@@ -163,14 +163,14 @@ const styles = StyleSheet.create({
   cameraIcon: {
     borderColor: "black",
     borderWidth: 2,
-    margin: 6,
-    height: 165,
+    margin: 3,
+   
   },
   signIcon: {
     borderColor: "black",
     borderWidth: 2,
-    margin: 6,
-    height: 165,
+    margin: 3,
+    height: 120,
   },
   button: {
     borderRadius: 10,
