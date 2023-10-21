@@ -10,7 +10,7 @@ const AuthProps = {
 };
 
 const TOKEN_KEY = "MY_JWT";
-export const API_URL = 'http://192.168.1.11:3000';
+export const API_URL = 'https://pg-api-45dn.onrender.com';
 const AuthContext = createContext(AuthProps);
 
 export const useAuth = () => {
