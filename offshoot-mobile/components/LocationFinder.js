@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import * as Location from "expo-location";
 
 
-const LocationFinder = () => {
+const LocationFinder = (props) => {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [place, setPlace] = useState(null);
@@ -31,7 +31,8 @@ const LocationFinder = () => {
       text = errorMsg;
     } else if (location) {
       // console.log(location)
-      // props.addLongitude(location.coords.latitude)
+      props.addLongitude(location.coords.latitude)
+      props.addLatitude(location.coords.longitude)
       text = JSON.stringify(place);
     }
   return (

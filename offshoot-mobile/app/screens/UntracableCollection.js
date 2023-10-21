@@ -8,104 +8,113 @@ import {
   TouchableOpacity,
   Pressable,
   ScrollView,
-  Alert
+  Alert,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useRef,useState } from "react";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../utils/colors";
 import LocationFinder from "../../components/LocationFinder";
 import axios from "axios";
 
-
-const UntracableCollection = ({navigation}) => {
+const UntracableCollection = ({navigation,route}) => {
   const dispositionRef = useRef();
   const remarkRef = useRef();
+  const [longitude, setLongitude] = useState();
+  const [latitude,setLatitude] = useState();
 
   function handleSumbit() {
     const obj = {
+      status:"Untracable",
+      loanId :route.params.loanId,
       disposition: dispositionRef.current.value,
       remark: remarkRef.current.value,
-      
+      latitude : latitude,
+      longitude : longitude,
+      date: Date(),
     };
-    console.log(obj);
 
     async function sendData() {
       const response = await axios.post("http://192.168.1.11:3000/untracable", {
         obj,
       });
-
-      console.log(response.data);
+      if (response) {
+        navigation.navigate("Root");
+      }
     }
 
-    sendData();
-
-    Alert.alert('Sumbitting Data', 'Are you sure?', [
+    Alert.alert("Sumbitting Data", "Are you sure?", [
       {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
       },
-      {text: 'YES', onPress: () => navigation.navigate("Root")},
+      { text: "YES", onPress: () => sendData() },
     ]);
-  
   }
-
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-
-     
-      <View style={{ margin: 30 }}>
-        <TextInput style={styles.inputtext} placeholder="Disposition" ref={dispositionRef} onChangeText={(e) => (dispositionRef.current.value = e)}/>
-        <TextInput style={styles.inputtext} placeholder="FE_REMARKS" ref={remarkRef} onChangeText={(e) => (remarkRef.current.value = e)} />
-        {/* 
+        <View style={{ margin: 30 }}>
+          <TextInput
+            style={styles.inputtext}
+            placeholder="Disposition"
+            ref={dispositionRef}
+            onChangeText={(e) => (dispositionRef.current.value = e)}
+          />
+          <TextInput
+            style={styles.inputtext}
+            placeholder="FE_REMARKS"
+            ref={remarkRef}
+            onChangeText={(e) => (remarkRef.current.value = e)}
+          />
+          {/* 
         Disposition
         FE_REMARKS
           lat/long
           time stamp
           image - 4
         */}
-        <LocationFinder />
-        <View style={styles.imageWrapper}>
-          <TouchableOpacity>
-            <Ionicons
-              style={styles.cameraIcon}
-              name="camera"
-              size={109}
-              color="black"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Ionicons
-              style={styles.cameraIcon}
-              name="camera"
-              size={109}
-              color="black"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Ionicons
-              style={styles.cameraIcon}
-              name="camera"
-              size={109}
-              color="black"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Ionicons
-              style={styles.cameraIcon}
-              name="camera"
-              size={109}
-              color="black"
-            />
-          </TouchableOpacity>
+          <LocationFinder addLongitude={setLongitude} addLatitude={setLatitude}/>
+          <View style={styles.imageWrapper}>
+            <TouchableOpacity>
+              <Ionicons
+                style={styles.cameraIcon}
+                name="camera"
+                size={109}
+                color="black"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Ionicons
+                style={styles.cameraIcon}
+                name="camera"
+                size={109}
+                color="black"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Ionicons
+                style={styles.cameraIcon}
+                name="camera"
+                size={109}
+                color="black"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Ionicons
+                style={styles.cameraIcon}
+                name="camera"
+                size={109}
+                color="black"
+              />
+            </TouchableOpacity>
+          </View>
+          <Pressable style={styles.button} onPress={handleSumbit}>
+            <Text style={styles.textStyle}>SUBMIT</Text>
+          </Pressable>
         </View>
-        <Pressable style={styles.button} onPress={handleSumbit}>
-          <Text style={styles.textStyle}>SUBMIT</Text>
-        </Pressable>
-      </View>
       </ScrollView>
     </SafeAreaView>
   );

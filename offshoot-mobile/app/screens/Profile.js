@@ -17,19 +17,19 @@ const Profile = () => {
         <Ionicons name="person-circle" size={100} color='white' />
       </View>
       <View style={{marginTop:25}}>
-         <Text style={styles.headingText} >Hello,Bharat</Text>
+         <Text style={styles.headingText} >Hello, Kamal</Text>
         <View style={styles.infoWrapper}>
           <Ionicons name="person" size={24} color="black" />
-          <Text>Bharat</Text>
+          <Text>Kamal</Text>
         </View>
        
         <View style={styles.infoWrapper}>
           <Entypo name="mobile" size={24} color="black" />
-          <Text>9999999999</Text>
+          <Text>7247854332</Text>
         </View>
         <View style={styles.infoWrapper}>
           <MaterialIcons name="email" size={24} color="black" />
-          <Text>bharat@gmail.com</Text>
+          <Text>Kamal@gmail.com</Text>
         </View>
       </View>
       <View style={styles.buttonWrapper}>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     
     justifyContent:'center',
     alignItems:'center',
-    backgroundColor:colors.darkBlue,
+    backgroundColor:colors.lightBlue,
     borderBottomStartRadius:250,
     borderBottomEndRadius:250,
   },
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   submitButton: {
     flex: 1,
     height: 50,
-    backgroundColor: colors.darkBlue,
+    backgroundColor: colors.lightBlue,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
