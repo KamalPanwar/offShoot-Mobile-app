@@ -14,4 +14,9 @@ router.get("/coldata", async (req, res) => {
   }
 });
 
+router.post("/traced", async(req,res)=>{
+  console.log(req.body);
+  res.send("OK")
+})
+
 module.exports = router;
