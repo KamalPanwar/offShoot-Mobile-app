@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  console.log(req.body);
+  
   const { username, password } = req.body;
   const user = await UserRepo.insert(username, password);
   res.send(user);

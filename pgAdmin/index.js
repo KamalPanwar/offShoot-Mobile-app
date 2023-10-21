@@ -3,11 +3,12 @@ const pool = require("./src/pool.js");
 
 pool
   .connect({
-    host: "127.0.0.1",
+    host: "ldpg-ckpno7o5vl2c73bprha0-a.oregon-postgres.render.com",
     port: 5432,
     database: "offshoot",
-    user: "postgres",
-    password: "12345",
+    user: "offshoot_user",
+    password: "FCkWmYk9ntv2DoyffsdYfiXQEoGMGeZb",
+    ssl:true
   })
   .then(() => {
     app().listen(3000, () => {
