@@ -8,12 +8,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import * as Location from "expo-location";
+
 import { fontSizes } from "../../utils/sizes";
 import { colors } from "../../utils/colors";
 import { useForm, Controller } from "react-hook-form";
 import Constants from "expo-constants";
 import { AntDesign } from "@expo/vector-icons";
 import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
 
 
 export default function Login({ navigation }) {
@@ -38,6 +41,15 @@ export default function Login({ navigation }) {
    
    
   };
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      console.log(status);
+     
+    })();
+  }, []);
+
 
   return (
     <SafeAreaView style={styles.container}>
