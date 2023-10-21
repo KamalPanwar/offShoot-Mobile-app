@@ -17,11 +17,11 @@ const CollectionModal = (props) => {
 
   function handleTraced() {
     props.onHide();
-    props.navigation.navigate("Traced Collection",{loanId:collectionData.loancardaccountno});
+    props.navigation.navigate("Traced Collection",{loanId:collectionData.collectionid});
   }
   function handleUntracable() {
     props.onHide();
-    props.navigation.navigate("Untracable Collection",{loanId:collectionData.loancardaccountno});
+    props.navigation.navigate("Untracable Collection",{loanId:collectionData.collectionid});
   }
   if (collectionData) {
     return (

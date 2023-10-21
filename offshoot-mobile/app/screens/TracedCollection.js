@@ -28,6 +28,7 @@ const TracedCollection = ({navigation,route}) => {
 
   const [longitude, setLongitude] = useState();
   const [latitude,setLatitude] = useState();
+  const [lllocation,setLllocation]=useState()
 
   function handleSumbit() {
     const obj = {
@@ -39,12 +40,13 @@ const TracedCollection = ({navigation,route}) => {
       paymentMode: modeRef.current.value,
       latitude : latitude,
       longitude : longitude,
+      lllocation:lllocation,
       date: Date(),
     };
     
 
     async function sendData() {
-      const response = await axios.post("http://192.168.1.11:3000/traced", {
+      const response = await axios.post("http://192.168.200.19:3000/traced", {
         obj,
       });
       if(response){
@@ -102,9 +104,8 @@ const TracedCollection = ({navigation,route}) => {
         
         */}
 
-          <LocationFinder addLongitude={setLongitude} addLatitude={setLatitude}/>
-          <Text>longitude {longitude}</Text>
-          <Text>latitude {latitude}</Text>
+          <LocationFinder addLongitude={setLongitude} addLatitude={setLatitude} lllocation={setLllocation} />
+
 
           <View style={styles.imageWrapper}>
             <TouchableOpacity>

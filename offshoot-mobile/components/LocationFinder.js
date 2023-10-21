@@ -23,8 +23,10 @@ const LocationFinder = (props) => {
   
         let place = await Location.reverseGeocodeAsync({ latitude, longitude });
         setPlace(place);
+       
       })();
     }, []);
+
   
     let text = "Waiting..";
     if (errorMsg) {
@@ -34,6 +36,7 @@ const LocationFinder = (props) => {
       props.addLongitude(location.coords.latitude)
       props.addLatitude(location.coords.longitude)
       text = JSON.stringify(place);
+      props.lllocation(text)
     }
   return (
     <View>

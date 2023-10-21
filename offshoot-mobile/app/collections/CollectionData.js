@@ -35,7 +35,7 @@ const CollectionData = ({ navigation }) => {
   useEffect(() => {
     async function fetchdata() {
       try {
-        const response = await axios.get("https://pg-api-45dn.onrender.com/coldata");
+        const response = await axios.get("http://192.168.200.19:3000/coldata");
 
         setApiData(response.data);
       } catch (error) {

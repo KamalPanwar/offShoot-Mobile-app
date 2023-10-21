@@ -22,6 +22,7 @@ const UntracableCollection = ({navigation,route}) => {
   const remarkRef = useRef();
   const [longitude, setLongitude] = useState();
   const [latitude,setLatitude] = useState();
+  const [lllocation,setLllocation]=useState()
 
   function handleSumbit() {
     const obj = {
@@ -31,11 +32,12 @@ const UntracableCollection = ({navigation,route}) => {
       remark: remarkRef.current.value,
       latitude : latitude,
       longitude : longitude,
+      lllocation:lllocation,
       date: Date(),
     };
 
     async function sendData() {
-      const response = await axios.post("http://192.168.1.11:3000/untracable", {
+      const response = await axios.post("http://192.168.200.19:3000/traced", {
         obj,
       });
       if (response) {
@@ -76,7 +78,7 @@ const UntracableCollection = ({navigation,route}) => {
           time stamp
           image - 4
         */}
-          <LocationFinder addLongitude={setLongitude} addLatitude={setLatitude}/>
+          <LocationFinder addLongitude={setLongitude} addLatitude={setLatitude} lllocation={setLllocation}/>
           <View style={styles.imageWrapper}>
             <TouchableOpacity>
               <Ionicons
