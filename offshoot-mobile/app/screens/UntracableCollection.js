@@ -12,6 +12,7 @@ import React from "react";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../utils/colors";
+import LocationFinder from "../../components/LocationFinder";
 
 const UntracableCollection = () => {
   return (
@@ -19,9 +20,12 @@ const UntracableCollection = () => {
       <View style={{ margin: 30 }}>
         <TextInput style={styles.inputtext} placeholder="Disposition" />
         <TextInput style={styles.inputtext} placeholder="FE_REMARKS" />
-        <View>
-          <Text>Current Location/Address:</Text>
-        </View>
+        {/* 
+          lat/long
+          time stamp
+          image - 4
+        */}
+        <LocationFinder />
         <View style={styles.imageWrapper}>
           <TouchableOpacity>
             <Ionicons
@@ -87,13 +91,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "grey",
     borderRadius: 8,
-
     marginBottom: 10,
     paddingLeft: 10,
   },
   imageWrapper: {
     flexDirection: "row",
     flexWrap: "wrap",
+    marginTop: 15,
   },
 
   cameraIcon: {

@@ -13,6 +13,7 @@ import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { colors } from "../../utils/colors";
+import LocationFinder from "../../components/LocationFinder";
 
 const TracedCollection = () => {
   return (
@@ -23,7 +24,20 @@ const TracedCollection = () => {
           style={styles.inputtext}
           placeholder="Contact Person Number"
         />
-        <TextInput style={styles.inputtext} placeholder="Address" />
+
+        <TextInput style={styles.inputtext} placeholder="Payment Amount" />
+        <TextInput style={styles.inputtext} placeholder="Payment Mode" />
+        
+        {/* 
+        Lat/long 
+        time stamp
+        image -3
+        sign
+        
+        
+        */}
+
+        <LocationFinder/>
 
         <View style={styles.imageWrapper}>
           <TouchableOpacity>
