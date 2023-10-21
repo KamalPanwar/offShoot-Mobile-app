@@ -31,7 +31,7 @@ const LocationFinder = () => {
       text = errorMsg;
     } else if (location) {
       // console.log(location)
-      
+      // props.addLongitude(location.coords.latitude)
       text = JSON.stringify(place);
     }
   return (
@@ -45,9 +45,9 @@ const LocationFinder = () => {
       {place ? `${place[0].region}, ` : " "}
       {place ? `${place[0].country}, ` : " "}
       {place ? `${place[0].postalCode}, ` : " "}
-      {location ? `latitude: ${location.coords.latitude},` :""}
+      {/* {location ? `latitude: ${location.coords.latitude},` :""}
       {location ? `longitude: ${location.coords.longitude}, ` :""}
-      {location ? `timestamp: ${Date(location.timestamp)}, ` :""}
+      {location ? `timestamp: ${Date(location.timestamp)}, ` :""} */}
 
     </Text>
      :<ActivityIndicator size='large'/>}

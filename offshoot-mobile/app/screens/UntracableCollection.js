@@ -7,6 +7,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Pressable,
+  ScrollView,
 } from "react-native";
 import React, { useRef } from "react";
 import Constants from "expo-constants";
@@ -42,6 +43,9 @@ const UntracableCollection = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <ScrollView>
+
+     
       <View style={{ margin: 30 }}>
         <TextInput style={styles.inputtext} placeholder="Disposition" ref={dispositionRef} onChangeText={(e) => (dispositionRef.current.value = e)}/>
         <TextInput style={styles.inputtext} placeholder="FE_REMARKS" ref={remarkRef} onChangeText={(e) => (remarkRef.current.value = e)} />
@@ -91,6 +95,7 @@ const UntracableCollection = () => {
           <Text style={styles.textStyle}>SUBMIT</Text>
         </Pressable>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
