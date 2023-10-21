@@ -25,6 +25,7 @@ const TracedCollection = ({navigation}) => {
   const modeRef = useRef();
 
   const [longitude, setLongitude] = useState();
+  const [latitude,setLatitude] = useState();
 
   function handleSumbit() {
     const obj = {
@@ -32,6 +33,9 @@ const TracedCollection = ({navigation}) => {
       personNumber: personNumberRef.current.value,
       paymentAmout: amountRef.current.value,
       paymentMode: modeRef.current.value,
+      latitude : latitude,
+      longitude : longitude,
+      date: Date(),
     };
     
 
@@ -39,18 +43,20 @@ const TracedCollection = ({navigation}) => {
       const response = await axios.post("http://192.168.1.11:3000/traced", {
         obj,
       });
+      if(response){
 
-      console.log(response.data);
+        navigation.navigate("Root")
+      }
     }
 
-    sendData();
+    
     Alert.alert('Sumbitting Data', 'Are you sure?', [
       {
         text: 'Cancel',
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      {text: 'YES', onPress: () => navigation.navigate("Root")},
+      {text: 'YES', onPress: () => sendData()},
     ]);
     
   }
@@ -92,8 +98,10 @@ const TracedCollection = ({navigation}) => {
         
         */}
 
-          <LocationFinder />
-          {/* <Text>{longitude}</Text> */}
+          <LocationFinder addLongitude={setLongitude} addLatitude={setLatitude}/>
+          <Text>longitude {longitude}</Text>
+          <Text>latitude {latitude}</Text>
+
           <View style={styles.imageWrapper}>
             <TouchableOpacity>
               <FontAwesome5
