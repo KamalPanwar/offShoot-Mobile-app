@@ -8,6 +8,7 @@ import {
   StatusBar,
   Pressable,
   ScrollView,
+  Alert,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import Constants from "expo-constants";
@@ -32,7 +33,7 @@ const TracedCollection = ({navigation}) => {
       paymentAmout: amountRef.current.value,
       paymentMode: modeRef.current.value,
     };
-    console.log(obj);
+    
 
     async function sendData() {
       const response = await axios.post("http://192.168.1.11:3000/traced", {
@@ -43,7 +44,15 @@ const TracedCollection = ({navigation}) => {
     }
 
     sendData();
-    navigation.navigate("Root")
+    Alert.alert('Sumbitting Data', 'Are you sure?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'YES', onPress: () => navigation.navigate("Root")},
+    ]);
+    
   }
   return (
     <SafeAreaView style={styles.container}>

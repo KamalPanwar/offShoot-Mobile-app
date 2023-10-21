@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Pressable,
   ScrollView,
+  Alert
 } from "react-native";
 import React, { useRef } from "react";
 import Constants from "expo-constants";
@@ -39,7 +40,15 @@ const UntracableCollection = ({navigation}) => {
 
     sendData();
 
-    navigation.navigate("Root")
+    Alert.alert('Sumbitting Data', 'Are you sure?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'YES', onPress: () => navigation.navigate("Root")},
+    ]);
+  
   }
 
 
