@@ -9,67 +9,106 @@ import {
   Pressable,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Constants from "expo-constants";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { colors } from "../../utils/colors";
-import LocationFinder from "../../components/LocationFinder";
 import axios from "axios";
+import * as Location from "expo-location";
 
-const TracedCollection = ({navigation,route}) => {
-
- 
+const TracedCollection = ({ navigation, route }) => {
   const personNameRef = useRef();
   const personNumberRef = useRef();
   const amountRef = useRef();
   const modeRef = useRef();
 
-  const [longitude, setLongitude] = useState();
-  const [latitude,setLatitude] = useState();
-  const [lllocation,setLllocation]=useState()
+  const LOCATION_DISTANCE_THRESHOLD = 1;
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [place, setPlace] = useState(null);
 
+  useEffect(() => {
+    let subscription = null;
+    (async () => {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          setErrorMsg("Permission to access location was denied");
+          return;
+        }
+
+        subscription = await Location.watchPositionAsync(
+          {
+            accuracy: Location.Accuracy.Balanced,
+            distanceInterval: LOCATION_DISTANCE_THRESHOLD,
+          },
+          async (locations) => {
+            setLocation(locations)
+            let { longitude, latitude } = locations.coords;
+            let place = await Location.reverseGeocodeAsync({
+              latitude,
+              longitude,
+            });
+            setPlace(place);
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  let text = "Waiting..";
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location && place) {
+   
+    text = JSON.stringify(place);
+ 
+  }
   function handleSumbit() {
     const obj = {
-      status:"Traced",
-      loanId :route.params.loanId,
+      status: "Traced",
+      loanId: route.params.loanId,
       personName: personNameRef.current.value,
       personNumber: personNumberRef.current.value,
       paymentAmout: amountRef.current.value,
       paymentMode: modeRef.current.value,
-      latitude : latitude,
-      longitude : longitude,
-      lllocation:lllocation,
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      lllocation: place,
       date: Date(),
     };
-    
 
     async function sendData() {
-      const response = await axios.post("https://pg-api-45dn.onrender.com/traced", {
-        obj,
-      });
-      if(response){
-
-        navigation.navigate("Root")
+      const response = await axios.post(
+        "https://pg-api-45dn.onrender.com/traced",
+        {
+          obj,
+        }
+      );
+      if (response) {
+        navigation.navigate("Root");
       }
     }
 
-    
-    Alert.alert('Sumbitting Data', 'Are you sure?', [
+    Alert.alert("Sumbitting Data", "Are you sure?", [
       {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
       },
-      {text: 'YES', onPress: () => sendData()},
+      { text: "YES", onPress: () => sendData() },
     ]);
-    
   }
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={{ margin: 30 }}>
+     
           <TextInput
             style={styles.inputtext}
             placeholder="Contact Person Name"
@@ -95,17 +134,25 @@ const TracedCollection = ({navigation,route}) => {
             onChangeText={(e) => (modeRef.current.value = e)}
           />
 
-          {/* 
-        Lat/long 
-        time stamp
-        image -3
-        sign
-        
-        
-        */}
+          <View>
+            <Text style={{ fontWeight: "700" }}>Current Location/Address:</Text>
+            {place ? (
+              <Text>
+                {place ? `${place[0].name},` : " "}
+                {place ? `${place[0].district}, ` : " "}
+                {place ? `${place[0].city}, ` : " "}
+                {place ? `${place[0].region}, ` : " "}
+                {place ? `${place[0].country}, ` : " "}
+                {place ? `${place[0].postalCode}, ` : " "}
 
-          <LocationFinder addLongitude={setLongitude} addLatitude={setLatitude} lllocation={setLllocation} />
-
+                {location ? `latitude: ${location.coords.latitude},` : ""}
+                {location ? `longitude: ${location.coords.longitude}, ` : ""}
+                {location ? `timestamp: ${new Date(location.timestamp)}, ` : ""}
+              </Text>
+            ) : (
+              <ActivityIndicator size="large" />
+            )}
+          </View>
 
           <View style={styles.imageWrapper}>
             <TouchableOpacity>
@@ -186,7 +233,6 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 2,
     margin: 3,
-   
   },
   signIcon: {
     borderColor: "black",

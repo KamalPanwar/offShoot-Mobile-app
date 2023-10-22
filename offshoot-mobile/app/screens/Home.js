@@ -7,11 +7,11 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useAuth } from "../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import * as Location from "expo-location";
 
 const Home = ({ navigation }) => {
   const Drawer = createDrawerNavigator();
@@ -19,19 +19,16 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     (async () => {
-      const { status: foregroundStatus } = await Location.requestForegroundPermissionsAsync();
-      if (foregroundStatus === 'granted') {
-        const { status: backgroundStatus } = await Location.requestBackgroundPermissionsAsync();
-        if (backgroundStatus === 'granted') {
-          await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-            accuracy: Location.Accuracy.Balanced,
-          });
-        }
-      }
+      const { status: foregroundStatus } =
+        await Location.requestForegroundPermissionsAsync();
 
-     
+      if (foregroundStatus === "granted") {
+        const { status: backgroundStatus } =
+          await Location.requestBackgroundPermissionsAsync();
+      }
     })();
   }, []);
+
   return (
     <React.Fragment>
       <View style={styles.welcome}>
@@ -50,7 +47,6 @@ const Home = ({ navigation }) => {
                   />
                   <Text style={styles.welcomeText}>Welcome!</Text>
                 </View>
-               
               </View>
             </ScrollView>
           </SafeAreaView>
@@ -64,14 +60,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   welcomeBg: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
     width: null,
     height: null,
-  
   },
   welcomeMain: {
     flex: 1,
@@ -81,20 +76,19 @@ const styles = StyleSheet.create({
   },
   welcomeTop: {
     flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 24,
   },
   welcomeLogo: {
     width: 400,
     height: 205,
-    
   },
   welcomeText: {
     marginTop: 24,
     fontSize: 22,
-   
-    fontWeight: 'bold',
+
+    fontWeight: "bold",
   },
 });
 
