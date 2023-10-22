@@ -25,10 +25,14 @@ const TracedCollection = ({ navigation, route }) => {
   const amountRef = useRef();
   const modeRef = useRef();
 
+
   const LOCATION_DISTANCE_THRESHOLD = 1;
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [place, setPlace] = useState(null);
+
+  const [curLat, setCurLat] = useState();
+  const [curLon, setCurLon] = useState();
 
   useEffect(() => {
     let subscription = null;
@@ -48,6 +52,8 @@ const TracedCollection = ({ navigation, route }) => {
           async (locations) => {
             setLocation(locations)
             let { longitude, latitude } = locations.coords;
+            setCurLat(locations.coords.latitude);
+            setCurLon(locations.coords.latitude);
             let place = await Location.reverseGeocodeAsync({
               latitude,
               longitude,
@@ -77,8 +83,8 @@ const TracedCollection = ({ navigation, route }) => {
       personNumber: personNumberRef.current.value,
       paymentAmout: amountRef.current.value,
       paymentMode: modeRef.current.value,
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
+      latitude: curLat,
+      longitude: curLon,
       lllocation: place,
       date: Date(),
     };
