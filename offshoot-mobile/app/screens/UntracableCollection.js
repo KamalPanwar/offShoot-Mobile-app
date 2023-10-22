@@ -75,9 +75,9 @@ const UntracableCollection = ({ navigation, route }) => {
       loanId: route.params.loanId,
       disposition: dispositionRef.current.value,
       remark: remarkRef.current.value,
-      latitude: latitude,
-      longitude: longitude,
-      // lllocation: lllocation,
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      lllocation: place,
       date: Date(),
     };
 
