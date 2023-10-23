@@ -12,11 +12,12 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useAuth } from "../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Location from "expo-location";
+import * as Network from "expo-network";
 
 const Home = ({ navigation }) => {
   const Drawer = createDrawerNavigator();
   const { authState, onLogout } = useAuth();
-
+  const [ip, setIP] = useState();
   useEffect(() => {
     (async () => {
       const { status: foregroundStatus } =
@@ -25,6 +26,16 @@ const Home = ({ navigation }) => {
       if (foregroundStatus === "granted") {
         const { status: backgroundStatus } =
           await Location.requestBackgroundPermissionsAsync();
+
+        Network.getIpAddressAsync()
+          .then((ips) => {
+            setIP(ips);
+            console.log(ips);
+          })
+          .catch((err) => {
+            setIP(err);
+            console.log(err);
+          });
       }
     })();
   }, []);
