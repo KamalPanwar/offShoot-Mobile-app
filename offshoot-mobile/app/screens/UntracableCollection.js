@@ -33,47 +33,41 @@ const UntracableCollection = ({ navigation, route }) => {
   const [curLon, setCurLon] = useState();
 
   useEffect(() => {
-    let subscription = null;
-    (async () => {
+    const fetchLocation = async () => {
       try {
         let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== "granted") {
-          setErrorMsg("Permission to access location was denied");
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
           return;
         }
 
-        subscription = await Location.watchPositionAsync(
-          {
-            accuracy: Location.Accuracy.Balanced,
-            distanceInterval: LOCATION_DISTANCE_THRESHOLD,
-          },
-          async (locations) => {
-            setLocation(locations)
-            let { longitude, latitude } = locations.coords;
-            setCurLat(locations.coords.latitude);
-            setCurLon(locations.coords.latitude);
+        Location.installWebGeolocationPolyfill();
+        const currentLocation = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+        setLocation(currentLocation);
 
-            let place = await Location.reverseGeocodeAsync({
-              latitude,
-              longitude,
-            });
-            setPlace(place);
-          }
-        );
+        const { longitude, latitude } = currentLocation.coords;
+        setCurLat(latitude);
+        setCurLon(longitude)
+        const fetchedPlace = await Location.reverseGeocodeAsync({ latitude, longitude });
+        setPlace(fetchedPlace);
       } catch (error) {
-        console.log(error);
+        console.error('Error fetching location:', error);
+        setErrorMsg('Error fetching location');
       }
-    })();
+    };
+
+    fetchLocation();
   }, []);
 
-  let text = "Waiting..";
+  let text = 'Waiting..';
   if (errorMsg) {
     text = errorMsg;
-  } else if (location && place) {
-   
+  } else if (location) {
     text = JSON.stringify(place);
- 
   }
+
 
   function handleSumbit() {
     const obj = {

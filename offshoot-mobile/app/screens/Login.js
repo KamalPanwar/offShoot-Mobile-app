@@ -42,19 +42,7 @@ export default function Login({ navigation }) {
    
   };
 
-  useEffect(() => {
-    (async () => {
-      const { status: foregroundStatus } = await Location.requestForegroundPermissionsAsync();
-      if (foregroundStatus === 'granted') {
-        const { status: backgroundStatus } = await Location.requestBackgroundPermissionsAsync();
-        if (backgroundStatus === 'granted') {
-          await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest, maximumAge: 10000})
-        }
-      }
 
-     
-    })();
-  }, []);
 
 
   return (
